@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 const express     = require('express');
 const session     = require('express-session');
 const bodyParser  = require('body-parser');
@@ -12,7 +14,7 @@ const cookieParser= require('cookie-parser')
 const app         = express();
 const http        = require('http').Server(app);
 const sessionStore= new session.MemoryStore();
-const io          = require('socket.io');
+const io          = require('socket.io')(http);
 
 
 fccTesting(app); //For FCC testing purposes
