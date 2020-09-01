@@ -12,6 +12,7 @@ const cookieParser= require('cookie-parser')
 const app         = express();
 const http        = require('http').Server(app);
 const sessionStore= new session.MemoryStore();
+const io          = require('socket.io');
 
 
 fccTesting(app); //For FCC testing purposes
@@ -41,7 +42,9 @@ mongo.connect(process.env.DATABASE, (err, db) => {
 
   
     //start socket.io code  
-
+    io.on('connection', socket => {
+      console.log('A user has connected');
+    })
   
 
     //end socket.io code
