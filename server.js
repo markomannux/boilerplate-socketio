@@ -34,11 +34,11 @@ app.use(session({
 }));
 
 
-mongo.connect(process.env.DATABASE, (err, db) => {
+mongo.connect(process.env.DATABASE, (err, client) => {
     if(err) console.log('Database error: ' + err);
   
-    auth(app, db);
-    routes(app, db);
+    auth(app, client);
+    routes(app, client);
       
     http.listen(process.env.PORT || 3000);
 

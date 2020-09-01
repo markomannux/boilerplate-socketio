@@ -3,7 +3,7 @@ const mongo       = require('mongodb').MongoClient;
 const passport    = require('passport');
 const GitHubStrategy = require('passport-github').Strategy;
 
-module.exports = function (app, db) {
+module.exports = function (app, client) {
   
     app.use(passport.initialize());
     app.use(passport.session());
@@ -13,7 +13,7 @@ module.exports = function (app, db) {
     });
 
     passport.deserializeUser((id, done) => {
-        db.collection('chatusers').findOne(
+        client.db('socketio').collection('chatusers').findOne(
             {id: id},
             (err, doc) => {
                 done(null, doc);
@@ -27,7 +27,7 @@ module.exports = function (app, db) {
         callbackURL: "https://boilerplate-socketio.markomannux.repl.co/auth/github/callback"
       },
       function(accessToken, refreshToken, profile, cb) {
-          db.collection('chatusers').findAndModify(
+          client.db('socketio').collection('chatusers').findAndModify(
               {id: profile.id},
               {},
               {$setOnInsert:{
@@ -38,7 +38,7 @@ module.exports = function (app, db) {
                   created_on: new Date(),
                   provider: profile.provider || '',
                   chat_messages: 0
-              },$set:{
+              },$set:{ 
                   last_login: new Date()
               },$inc:{
                   login_count: 1
