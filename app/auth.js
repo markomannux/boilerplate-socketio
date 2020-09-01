@@ -34,7 +34,7 @@ module.exports = function (app, db) {
                   id: profile.id,
                   name: profile.displayName || 'Anonymous',
                   photo: profile.photos[0].value || '',
-                  email: profile.emails[0].value || 'No public email',
+                  email: profile.email || 'No public email',
                   created_on: new Date(),
                   provider: profile.provider || '',
                   chat_messages: 0
@@ -45,6 +45,10 @@ module.exports = function (app, db) {
               }},
               {upsert:true, new: true}, //Insert object if not found, Return new object after modify
               (err, doc) => {
+                  if (err) {
+                      console.log(err);
+                      return;
+                  }
                   return cb(null, doc.value);
               }
           );
