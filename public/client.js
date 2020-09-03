@@ -16,11 +16,15 @@ $( document ).ready(function() {
 
     $('#messages').append($('<li>').text('<b>' + message + '<\/b>'));
   });
+
+  socket.on('chat message', function(message) {
+    $('#messages').append($('<li>').text(`${message.name}: ${message.message}`));
+  });
    
   // Form submittion with new message in field with id 'm'
   $('form').submit(function(){
     var messageToSend = $('#m').val();
-    //send message to server here?
+    socket.emit('chat message', messageToSend);
     $('#m').val('');
     return false; // prevent form submit from refreshing page
   });
