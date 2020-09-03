@@ -11,7 +11,7 @@ $( document ).ready(function() {
     if (data.connected) {
       message += ' has joined the chat.';
     } else {
-      message =+ ' has left the chat.'
+      message += ' has left the chat.'
     }
 
     $('#messages').append($('<li>').text('<b>' + message + '<\/b>'));
