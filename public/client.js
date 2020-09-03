@@ -4,9 +4,18 @@ $( document ).ready(function() {
   /*global io*/
   var socket = io();
   
-  socket.on('user count', function(data) {
+  socket.on('user', function(data) {
     console.log(data);
-  })
+    $('#num-users').text(`${data.currentUsers} users online`)
+    let message = data.name;
+    if (data.connected) {
+      message += ' has joined the chat.';
+    } else {
+      message =+ ' has left the chat.'
+    }
+
+    $('#messages').append($('<li>').text(`<b>${message}<\/b>`));
+  });
    
   // Form submittion with new message in field with id 'm'
   $('form').submit(function(){
