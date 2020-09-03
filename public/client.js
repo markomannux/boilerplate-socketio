@@ -17,7 +17,7 @@ $( document ).ready(function() {
     $('#messages').append($('<li>').text('<b>' + message + '<\/b>'));
   });
 
-  socket.on('chat message', function(message) {
+  socket.on('chat message', function(data) {
     $('#messages').append($('<li>').text(`${message.name}: ${message.message}`));
   });
    
