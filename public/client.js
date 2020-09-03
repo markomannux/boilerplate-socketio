@@ -14,7 +14,7 @@ $( document ).ready(function() {
       message =+ ' has left the chat.'
     }
 
-    $('#messages').append($('<li>').text(`<b>${message}<\/b>`));
+    $('#messages').append($('<li>').text('<b>' + message + '<\/b>'));
   });
    
   // Form submittion with new message in field with id 'm'
